@@ -1,0 +1,33 @@
+[package]
+name = "shreds-udp"
+version = "0.3.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+shredstream = { path = "vendor/shredstream" }
+libc = "0.2"
+socket2 = { version = "0.5", features = ["all"] }
+
+yellowstone-grpc-proto = "12"
+tonic = { version = "0.14", features = ["transport"] }
+tonic-prost = "0.14"
+prost = { version = "0.14", features = ["derive"] }
+
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "sync", "time", "net", "io-util"] }
+tokio-stream = "0.1"
+
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+
+solana-transaction = { version = "=4.1.6", features = ["serde"] }
+solana-message = "4"
+solana-signature = "3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+[workspace]
+members = ["vendor/shredstream"]
